@@ -8,23 +8,18 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('products', function (Blueprint $table) {
+        Schema::create('bids', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->foreignId('category_id')->constrained()->onDelete('cascade');
-            $table->string('title');
-            $table->text('description');
-            $table->decimal('starting_price', 10, 2);
-            $table->decimal('current_price', 10, 2);
-            $table->string('image')->nullable();
-            $table->enum('status', ['active', 'sold', 'closed'])->default('active');
-            $table->timestamp('ends_at')->nullable();
+            $table->foreignId('product_id')->constrained()->onDelete('cascade');
+            $table->decimal('amount', 10, 2);
+            $table->boolean('is_winning')->default(false);
             $table->timestamps();
         });
     }
 
     public function down(): void
     {
-        Schema::dropIfExists('products');
+        Schema::dropIfExists('bids');
     }
 };
