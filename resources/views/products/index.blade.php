@@ -77,7 +77,12 @@
                                     <strong>
                                         {{ $product->current_price }} €
                                     </strong>
-
+                                    
+                                    <div class="mt-3">
+    <button class="btn btn-outline-dark">
+        Jetzt bieten
+    </button>
+</div>
                                 </div>
 
                             </div>
