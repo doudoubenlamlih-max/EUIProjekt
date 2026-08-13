@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Bid;
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 class BidController extends Controller
-{
-    /**
+{/**
      * Display a listing of the resource.
      */
     public function index()
@@ -25,10 +26,10 @@ class BidController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
-    {
-        //
-    }
+   public function store(Request $request, Product $product)
+{
+    //
+}
 
     /**
      * Display the specified resource.
