@@ -9,8 +9,11 @@
     <h1>Produkte</h1>
 
     @foreach ($products as $product)
-        <p>{{ $product->title }}</p>
-    @endforeach
+<p>
+    {{ $product->title }} -
+    {{ $product->current_price }} € -
+    {{ $product->description }}
+</p>    @endforeach
 
 </body>
-</html> 
+</html>
