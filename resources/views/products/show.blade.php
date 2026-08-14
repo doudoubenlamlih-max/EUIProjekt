@@ -18,7 +18,24 @@
             <strong>Aktuelles Gebot:</strong>
             {{ $product->current_price }} €
         </p>
+        <form action="{{ route('bids.store', $product->id) }}" method="POST">
+    @csrf
 
+    <label for="amount">Dein Gebot:</label>
+
+    <input
+        type="number"
+        name="amount"
+        id="amount"
+        step="0.01"
+        min="0.01"
+        required
+    >
+
+    <button type="submit" class="btn btn-dark">
+        Gebot abgeben
+    </button>
+</form>
     </div>
 
 </body>
