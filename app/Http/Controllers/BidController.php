@@ -31,7 +31,9 @@ class BidController extends Controller
                 ])
                 ->withInput();
         }
-
+        Bid::where('product_id', $product->id)
+    ->where('is_winning', true)
+    ->update(['is_winning' => false]);
         Bid::create([
             'user_id' => 1,
             'product_id' => $product->id,
