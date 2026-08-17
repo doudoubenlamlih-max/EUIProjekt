@@ -18,6 +18,11 @@
             <strong>Aktuelles Gebot:</strong>
             {{ $product->current_price }} €
         </p>
+        @if ($errors->has('amount'))
+    <div class="alert alert-danger">
+        {{ $errors->first('amount') }}
+    </div>
+@endif
         <form action="{{ route('bids.store', $product->id) }}" method="POST">
     @csrf
 
