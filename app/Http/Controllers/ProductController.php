@@ -7,12 +7,28 @@ use Illuminate\Http\Request;
 use App\Models\Category;
 class ProductController extends Controller
 {
-    public function index()
-    {
-        $products = Product::all();
+   public function index(Request $request)
+{
+    $query = Product::query();
 
-        return view('products.index', compact('products'));
+    // Produktsuche
+    if ($request->filled('search')) {
+        $query->where('title', 'like', '%' . $request->search . '%');
     }
+
+    // Sortierung nach Preis
+    if ($request->sort === 'price_asc') {
+        $query->orderBy('current_price', 'asc');
+    }
+
+    if ($request->sort === 'price_desc') {
+        $query->orderBy('current_price', 'desc');
+    }
+
+    $products = $query->get();
+
+    return view('products.index', compact('products'));
+}
     /**
      * Show the form for creating a new resource.
      */
