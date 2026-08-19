@@ -85,7 +85,17 @@ class ProductController extends Controller
      * Remove the specified resource from storage.
      */
     public function destroy(string $id)
-    {
-        //
-    }
+{
+    $product = Product::findOrFail($id);
+
+    // Zugehörige Gebote zuerst löschen
+    $product->bids()->delete();
+
+    // Produkt löschen
+    $product->delete();
+
+    return redirect()
+        ->route('products.index')
+        ->with('success', 'Produkt wurde erfolgreich gelöscht.');
+}
 }

@@ -6,21 +6,24 @@
 
 <div class="container px-4 px-lg-5 py-5">
 
+    {{-- Erfolgsmeldung --}}
     @if (session('success'))
         <div class="alert alert-success">
             {{ session('success') }}
         </div>
     @endif
 
+    {{-- Fehlermeldung --}}
     @if (session('error'))
         <div class="alert alert-danger">
             {{ session('error') }}
         </div>
     @endif
 
+
     <div class="row gx-4 gx-lg-5 align-items-center">
 
-        <!-- Produktbild -->
+        {{-- Produktbild --}}
         <div class="col-md-6">
 
             @if ($product->image)
@@ -34,13 +37,13 @@
 
             @else
 
-                <div class="bg-light d-flex align-items-center justify-content-center rounded"
-                     style="height: 450px;">
-
+                <div
+                    class="bg-light d-flex align-items-center justify-content-center rounded"
+                    style="height: 450px;"
+                >
                     <span class="text-muted fs-4">
                         Kein Bild vorhanden
                     </span>
-
                 </div>
 
             @endif
@@ -48,7 +51,7 @@
         </div>
 
 
-        <!-- Produktinformationen -->
+        {{-- Produktinformationen --}}
         <div class="col-md-6">
 
             <span class="badge bg-dark mb-3">
@@ -64,7 +67,7 @@
             </p>
 
 
-            <!-- Aktuelles Gebot -->
+            {{-- Aktuelles Gebot --}}
             <div class="my-4">
 
                 <small class="text-muted">
@@ -78,19 +81,17 @@
             </div>
 
 
-            <!-- Fehler beim Gebot -->
+            {{-- Fehler bei ungültigem Gebot --}}
             @if ($errors->has('amount'))
-
                 <div class="alert alert-danger">
                     {{ $errors->first('amount') }}
                 </div>
-
             @endif
 
 
             @if ($product->status !== 'sold')
 
-                <!-- Gebot -->
+                {{-- Gebot abgeben --}}
                 <div class="card shadow-sm">
 
                     <div class="card-body">
@@ -99,15 +100,19 @@
                             Gebot abgeben
                         </h5>
 
-                        <form action="{{ route('bids.store', $product->id) }}"
-                              method="POST">
+                        <form
+                            action="{{ route('bids.store', $product->id) }}"
+                            method="POST"
+                        >
 
                             @csrf
 
                             <div class="mb-3">
 
-                                <label for="amount"
-                                       class="form-label">
+                                <label
+                                    for="amount"
+                                    class="form-label"
+                                >
                                     Dein Gebot in €
                                 </label>
 
@@ -124,8 +129,10 @@
 
                             </div>
 
-                            <button type="submit"
-                                    class="btn btn-dark w-100">
+                            <button
+                                type="submit"
+                                class="btn btn-dark w-100"
+                            >
                                 Gebot abgeben
                             </button>
 
@@ -136,23 +143,24 @@
                 </div>
 
 
-                <!-- Sofort kaufen -->
-                <form action="{{ route('orders.store', $product->id) }}"
-                      method="POST"
-                      class="mt-3">
+                {{-- Sofort kaufen --}}
+                <form
+                    action="{{ route('orders.store', $product->id) }}"
+                    method="POST"
+                    class="mt-3"
+                >
 
                     @csrf
 
-                    <button type="submit"
-                            class="btn btn-success w-100">
-
+                    <button
+                        type="submit"
+                        class="btn btn-success w-100"
+                    >
                         Sofort kaufen –
                         {{ number_format($product->current_price, 2, ',', '.') }} €
-
                     </button>
 
                 </form>
-
 
             @else
 
@@ -163,12 +171,33 @@
             @endif
 
 
-            <!-- Zurück -->
-            <a href="{{ route('products.index') }}"
-               class="btn btn-link mt-3">
+            {{-- Produkt löschen --}}
+            <form
+                action="{{ route('products.destroy', $product->id) }}"
+                method="POST"
+                class="mt-3"
+            >
 
+                @csrf
+                @method('DELETE')
+
+                <button
+                    type="submit"
+                    class="btn btn-outline-danger w-100"
+                    onclick="return confirm('Produkt wirklich löschen?')"
+                >
+                    Produkt löschen
+                </button>
+
+            </form>
+
+
+            {{-- Zurück --}}
+            <a
+                href="{{ route('products.index') }}"
+                class="btn btn-link mt-3"
+            >
                 ← Zurück zu den Produkten
-
             </a>
 
         </div>
