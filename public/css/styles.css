@@ -10824,3 +10824,288 @@ textarea.form-control-lg {
     display: none !important;
   }
 }
+
+/* =========================================================
+   MDMarkt Beauty Theme
+   Custom styles for a chic makeup marketplace
+   ========================================================= */
+
+:root {
+  --beauty-bg: #fffaf8;
+  --beauty-surface: #ffffff;
+  --beauty-rose: #c98798;
+  --beauty-rose-dark: #a76476;
+  --beauty-blush: #f2d9df;
+  --beauty-nude: #ead8cf;
+  --beauty-gold: #b5966d;
+  --beauty-brown: #4c3838;
+  --beauty-muted: #8c7777;
+  --beauty-border: #eee1dc;
+}
+
+body {
+  background-color: var(--beauty-bg);
+  color: var(--beauty-brown);
+}
+
+.navbar {
+  background-color: rgba(255, 250, 248, 0.97) !important;
+  border-bottom: 1px solid var(--beauty-border);
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  box-shadow: 0 4px 18px rgba(73, 49, 49, 0.05);
+}
+
+.navbar-brand,
+.logo {
+  color: var(--beauty-brown) !important;
+  font-size: 1.65rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+}
+
+.nav-container {
+  width: 90%;
+  max-width: 1200px;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav-links {
+  display: flex;
+  gap: 25px;
+  align-items: center;
+}
+
+.nav-link,
+.nav-links a {
+  color: #6f5b5b !important;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.nav-link:hover,
+.nav-links a:hover {
+  color: var(--beauty-rose-dark) !important;
+}
+
+header.bg-dark {
+    background:
+        linear-gradient(
+            rgba(70, 45, 45, 0.18),
+            rgba(70, 45, 45, 0.18)
+        ),
+        url('/images/backgroundng') center center / cover no-repeat !important;
+
+    min-height: 430px;
+    display: flex;
+    align-items: center;
+}
+
+header.bg-dark h1 {
+  color: #ffffff !important;
+  letter-spacing: -0.02em;
+  text-shadow: 0 4px 22px rgba(96, 48, 60, .15);
+}
+
+header.bg-dark p,
+header.bg-dark .text-white-50 {
+  color: rgba(255,255,255,.88) !important;
+}
+
+header .display-4 {
+  font-weight: 800 !important;
+}
+
+section.py-5 {
+  background: linear-gradient(180deg, #fffaf8 0%, #fff 100%);
+}
+
+.card {
+  border: 1px solid var(--beauty-border);
+  border-radius: 18px;
+  overflow: hidden;
+  background: var(--beauty-surface);
+  box-shadow: 0 10px 30px rgba(90, 58, 58, 0.07);
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 16px 36px rgba(90, 58, 58, 0.12);
+}
+
+.card-body {
+  background-color: #fff;
+}
+
+.card h5 {
+  color: var(--beauty-brown);
+  font-weight: 700;
+}
+
+.card p {
+  color: var(--beauty-muted);
+}
+
+.card-img-top {
+  background: #fff;
+  border-bottom: 1px solid #f3e8e4;
+}
+
+.bg-light {
+  background-color: #fbf3f0 !important;
+}
+
+strong,
+.text-primary {
+  color: var(--beauty-rose-dark) !important;
+}
+
+.fs-4.fw-bold.text-primary,
+.fs-2.fw-bold.text-primary {
+  color: var(--beauty-rose-dark) !important;
+}
+
+.btn-primary {
+  color: #fff !important;
+  background-color: var(--beauty-rose) !important;
+  border-color: var(--beauty-rose) !important;
+  border-radius: 999px;
+  padding-left: 1.35rem;
+  padding-right: 1.35rem;
+  font-weight: 600;
+  box-shadow: 0 7px 18px rgba(201, 135, 152, .20);
+}
+
+.btn-primary:hover,
+.btn-primary:focus {
+  color: #fff !important;
+  background-color: var(--beauty-rose-dark) !important;
+  border-color: var(--beauty-rose-dark) !important;
+}
+
+.btn-outline-dark {
+  color: var(--beauty-brown) !important;
+  border-color: #c9a7a0 !important;
+  border-radius: 999px;
+  font-weight: 600;
+  background-color: #fff !important;
+}
+
+.btn-outline-dark:hover,
+.btn-outline-dark:focus {
+  color: #fff !important;
+  background-color: var(--beauty-rose-dark) !important;
+  border-color: var(--beauty-rose-dark) !important;
+}
+
+.btn-outline-secondary {
+  color: #806c6c !important;
+  border-color: #d8c8c3 !important;
+  border-radius: 999px;
+}
+
+.btn-outline-secondary:hover {
+  color: #fff !important;
+  background-color: #927878 !important;
+  border-color: #927878 !important;
+}
+
+.btn-dark {
+  background-color: var(--beauty-brown) !important;
+  border-color: var(--beauty-brown) !important;
+  border-radius: 999px;
+}
+
+.btn-dark:hover {
+  background-color: var(--beauty-rose-dark) !important;
+  border-color: var(--beauty-rose-dark) !important;
+}
+
+.form-control,
+.form-select {
+  border: 1px solid #ddcfca;
+  border-radius: 12px;
+  padding: .75rem .9rem;
+  background-color: #fff;
+}
+
+.form-control:focus,
+.form-select:focus {
+  border-color: var(--beauty-rose);
+  box-shadow: 0 0 0 .22rem rgba(201, 135, 152, .18);
+}
+
+.form-label {
+  color: var(--beauty-brown);
+  font-weight: 600;
+}
+
+.shadow-sm {
+  box-shadow: 0 12px 32px rgba(90, 58, 58, .08) !important;
+}
+
+.alert-success {
+  color: #655043;
+  background-color: #f1e7dc;
+  border-color: #e5d4c1;
+}
+
+.alert-danger {
+  color: #7a3f50;
+  background-color: #f8e6eb;
+  border-color: #edcbd5;
+}
+
+.badge.bg-dark {
+  background-color: var(--beauty-rose-dark) !important;
+  border-radius: 999px;
+  padding: .45rem .75rem;
+}
+
+.btn-link {
+  color: var(--beauty-rose-dark);
+  text-decoration: none;
+}
+
+.btn-link:hover {
+  color: var(--beauty-brown);
+}
+
+footer.bg-dark {
+  background-color: #4c3838 !important;
+}
+
+.row-cols-xl-4 .card {
+  min-height: 100%;
+}
+
+.card-img-top {
+  width: 100%;
+  object-fit: contain !important;
+  padding: 1rem;
+}
+
+@media (max-width: 767.98px) {
+  header.bg-dark {
+    min-height: 320px;
+  }
+
+  header.bg-dark .display-4 {
+    font-size: 2.4rem;
+  }
+
+  .navbar {
+    padding-top: .75rem;
+    padding-bottom: .75rem;
+  }
+
+  .nav-container {
+    width: 94%;
+  }
+}
+

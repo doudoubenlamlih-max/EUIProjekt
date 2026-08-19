@@ -14,9 +14,15 @@
 
                 <div class="card-body p-4">
 
-                    <h2 class="mb-4">
-                        Produkt verkaufen
-                    </h2>
+@if ($errors->any())
+    <div class="alert alert-danger">
+        <ul class="mb-0">
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
 
 <form action="{{ route('products.store') }}" method="POST" enctype="multipart/form-data">                        @csrf
 

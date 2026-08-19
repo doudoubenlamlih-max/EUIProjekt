@@ -43,14 +43,15 @@ class ProductController extends Controller
         $imagePath = $request->file('image')->store('products', 'public');
     }
 
-    Product::create([
-        'title' => $request->title,
-        'description' => $request->description,
-        'current_price' => $request->current_price,
-        'category_id' => $request->category_id,
-        'image' => $imagePath,
-    ]);
-
+   Product::create([
+    'user_id' => 1,
+    'title' => $request->title,
+    'description' => $request->description,
+    'starting_price' => $request->current_price,
+    'current_price' => $request->current_price,
+    'category_id' => $request->category_id,
+    'image' => $imagePath,
+]);
     return redirect()
         ->route('products.index')
         ->with('success', 'Produkt wurde erfolgreich erstellt.');

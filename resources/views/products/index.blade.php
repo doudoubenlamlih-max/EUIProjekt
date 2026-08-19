@@ -4,22 +4,6 @@
 
 @section('content')
 
-<header class="bg-dark py-5">
-    <div class="container px-4 px-lg-5 my-5">
-        <div class="text-center text-white">
-
-            <h1 class="display-4 fw-bolder">
-                MD Marktplatz & Bidding
-            </h1>
-
-            <p class="lead fw-normal text-white-50 mb-0">
-                Kaufen, verkaufen und bieten
-            </p>
-
-        </div>
-    </div>
-</header>
-
 <section class="py-5">
     <div class="container px-4 px-lg-5 mt-5">
 
@@ -30,11 +14,23 @@
                 <div class="col mb-5">
 
                     <div class="card h-100">
+@if ($product->image)
 
-                        <div class="bg-light d-flex align-items-center justify-content-center"
-                             style="height: 200px;">
-                            Kein Bild
-                        </div>
+    <img
+        src="{{ asset('storage/' . $product->image) }}"
+        class="card-img-top"
+        alt="{{ $product->title }}"
+        style="height: 200px; object-fit: cover;"
+    >
+
+@else
+
+    <div class="bg-light d-flex align-items-center justify-content-center"
+         style="height: 200px;">
+        Kein Bild vorhanden
+    </div>
+
+@endif
 
                         <div class="card-body p-4">
                             <div class="text-center">
