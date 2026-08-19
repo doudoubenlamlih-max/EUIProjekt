@@ -11,15 +11,27 @@
         <!-- Produktbild -->
         <div class="col-md-6">
 
-            <div class="bg-light d-flex align-items-center justify-content-center rounded"
-                 style="height: 450px;">
+           @if ($product->image)
 
-                <span class="text-muted fs-4">
-                    Produktbild
-                </span>
+    <img
+        src="{{ asset('storage/' . $product->image) }}"
+        alt="{{ $product->title }}"
+        class="img-fluid rounded"
+        style="width: 100%; height: 450px; object-fit: contain; background: white;"
+    >
 
-            </div>
+@else
 
+    <div class="bg-light d-flex align-items-center justify-content-center rounded"
+         style="height: 450px;">
+
+        <span class="text-muted fs-4">
+            Kein Bild vorhanden
+        </span>
+
+    </div>
+
+@endif
         </div>
 
 
