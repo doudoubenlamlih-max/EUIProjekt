@@ -7,12 +7,13 @@
 <section class="py-5">
     <div class="container px-4 px-lg-5">
 
-        <!-- Suche + Sortierung -->
+        <!-- Suche + Kategorie + Sortierung -->
         <form method="GET"
               action="{{ route('products.index') }}"
               class="row g-2 mb-5">
 
-            <div class="col-md-6">
+            <!-- Produktsuche -->
+            <div class="col-md-4">
 
                 <input
                     type="text"
@@ -24,7 +25,35 @@
 
             </div>
 
-            <div class="col-md-4">
+
+            <!-- Kategorie -->
+            <div class="col-md-3">
+
+                <select name="category"
+                        class="form-select">
+
+                    <option value="">
+                        Alle Kategorien
+                    </option>
+
+                    @foreach ($categories as $category)
+
+                        <option value="{{ $category->id }}"
+                            {{ request('category') == $category->id ? 'selected' : '' }}>
+
+                            {{ $category->name }}
+
+                        </option>
+
+                    @endforeach
+
+                </select>
+
+            </div>
+
+
+            <!-- Sortierung -->
+            <div class="col-md-3">
 
                 <select name="sort"
                         class="form-select">
@@ -47,11 +76,15 @@
 
             </div>
 
+
+            <!-- Filter Button -->
             <div class="col-md-2">
 
                 <button type="submit"
                         class="btn btn-dark w-100">
-                    Suchen
+
+                    Filtern
+
                 </button>
 
             </div>
@@ -62,12 +95,13 @@
         <!-- Produkte -->
         <div class="row gx-4 gx-lg-5 row-cols-1 row-cols-md-2 row-cols-xl-4 justify-content-center">
 
-            @foreach ($products as $product)
+            @forelse ($products as $product)
 
                 <div class="col mb-5">
 
                     <div class="card h-100">
 
+                        <!-- Produktbild -->
                         @if ($product->image)
 
                             <img
@@ -81,12 +115,15 @@
 
                             <div class="bg-light d-flex align-items-center justify-content-center"
                                  style="height: 200px;">
+
                                 Kein Bild vorhanden
+
                             </div>
 
                         @endif
 
 
+                        <!-- Produktinformationen -->
                         <div class="card-body p-4">
 
                             <div class="text-center">
@@ -99,10 +136,22 @@
                                     {{ $product->description }}
                                 </p>
 
+                                <!-- Kategorie -->
+                                @if ($product->category)
+
+                                    <small class="text-muted d-block mb-2">
+                                        {{ $product->category->name }}
+                                    </small>
+
+                                @endif
+
+                                <!-- Preis -->
                                 <strong>
                                     {{ number_format($product->current_price, 2, ',', '.') }} €
                                 </strong>
 
+
+                                <!-- Detailseite -->
                                 <div class="mt-3">
 
                                     <a href="{{ route('products.show', $product->id) }}"
@@ -122,7 +171,17 @@
 
                 </div>
 
-            @endforeach
+            @empty
+
+                <div class="col-12">
+
+                    <div class="alert alert-secondary text-center">
+                        Keine Produkte gefunden.
+                    </div>
+
+                </div>
+
+            @endforelse
 
         </div>
 

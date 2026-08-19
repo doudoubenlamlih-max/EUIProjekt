@@ -9,14 +9,35 @@ class ProductController extends Controller
 {
    public function index(Request $request)
 {
-    $query = Product::query();
+    $query = Product::with('category');
 
-    // Produktsuche
+    // Suche nach Produkttitel oder Kategoriename
     if ($request->filled('search')) {
-        $query->where('title', 'like', '%' . $request->search . '%');
+
+        $search = $request->search;
+
+        $query->where(function ($q) use ($search) {
+
+            $q->where('title', 'like', '%' . $search . '%')
+              ->orWhereHas('category', function ($categoryQuery) use ($search) {
+
+                  $categoryQuery->where(
+                      'name',
+                      'like',
+                      '%' . $search . '%'
+                  );
+
+              });
+
+        });
     }
 
-    // Sortierung nach Preis
+    // Kategorie filtern
+    if ($request->filled('category')) {
+        $query->where('category_id', $request->category);
+    }
+
+    // Preis sortieren
     if ($request->sort === 'price_asc') {
         $query->orderBy('current_price', 'asc');
     }
@@ -27,7 +48,12 @@ class ProductController extends Controller
 
     $products = $query->get();
 
-    return view('products.index', compact('products'));
+    $categories = Category::all();
+
+    return view(
+        'products.index',
+        compact('products', 'categories')
+    );
 }
     /**
      * Show the form for creating a new resource.
