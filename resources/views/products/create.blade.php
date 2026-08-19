@@ -18,8 +18,7 @@
                         Produkt verkaufen
                     </h2>
 
-                    <form action="{{ route('products.store') }}" method="POST">
-                        @csrf
+<form action="{{ route('products.store') }}" method="POST" enctype="multipart/form-data">                        @csrf
 
                         <div class="mb-3">
                             <label for="title" class="form-label">
@@ -89,7 +88,19 @@
 
                             </select>
                         </div>
+                            <div class="mb-3">
+    <label for="image" class="form-label">
+        Produktbild
+    </label>
 
+    <input
+        type="file"
+        id="image"
+        name="image"
+        class="form-control"
+        accept="image/*"
+    >
+</div>
                         <button type="submit" class="btn btn-primary">
                             Produkt speichern
                         </button>

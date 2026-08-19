@@ -27,27 +27,34 @@ class ProductController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-   public function store(Request $request)
+  public function store(Request $request)
 {
     $request->validate([
         'title' => 'required|string|max:255',
         'description' => 'required|string',
         'current_price' => 'required|numeric|min:0',
         'category_id' => 'required|exists:categories,id',
+        'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
     ]);
+
+    $imagePath = null;
+
+    if ($request->hasFile('image')) {
+        $imagePath = $request->file('image')->store('products', 'public');
+    }
 
     Product::create([
         'title' => $request->title,
         'description' => $request->description,
         'current_price' => $request->current_price,
         'category_id' => $request->category_id,
+        'image' => $imagePath,
     ]);
 
     return redirect()
         ->route('products.index')
         ->with('success', 'Produkt wurde erfolgreich erstellt.');
 }
-
     /**
      * Display the specified resource.
      */
