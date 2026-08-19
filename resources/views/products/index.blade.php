@@ -1,103 +1,74 @@
-<!DOCTYPE html>
-<html lang="de">
-<head>
-    <meta charset="UTF-8">
-    <title>Produkte</title>
-    <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
-</head>
+@extends('layouts.app')
 
-<body>
+@section('title', 'Produkte')
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container px-4 px-lg-5">
+@section('content')
 
-            <a class="navbar-brand" href="{{ route('products.index') }}">
-                MDMarkt
-            </a>
+<header class="bg-dark py-5">
+    <div class="container px-4 px-lg-5 my-5">
+        <div class="text-center text-white">
 
-            <div class="navbar-nav">
+            <h1 class="display-4 fw-bolder">
+                MD Marktplatz & Bidding
+            </h1>
 
-                <a class="nav-link active" href="{{ route('products.index') }}">
-                    Produkte
-                </a>
+            <p class="lead fw-normal text-white-50 mb-0">
+                Kaufen, verkaufen und bieten
+            </p>
 
-                <a class="nav-link" href="{{ route('products.create') }}">
-                    Produkt verkaufen
-                </a>
-
-            </div>
         </div>
-    </nav>
+    </div>
+</header>
 
-    <header class="bg-dark py-5">
-        <div class="container px-4 px-lg-5 my-5">
-            <div class="text-center text-white">
+<section class="py-5">
+    <div class="container px-4 px-lg-5 mt-5">
 
-                <h1 class="display-4 fw-bolder">
-                    MD Marktplatz & Bidding
-                </h1>
+        <div class="row gx-4 gx-lg-5 row-cols-1 row-cols-md-2 row-cols-xl-4 justify-content-center">
 
-                <p class="lead fw-normal text-white-50 mb-0">
-                    Kaufen, verkaufen und bieten
-                </p>
+            @foreach ($products as $product)
 
-            </div>
-        </div>
-    </header>
+                <div class="col mb-5">
 
+                    <div class="card h-100">
 
-    <section class="py-5">
-        <div class="container px-4 px-lg-5 mt-5">
+                        <div class="bg-light d-flex align-items-center justify-content-center"
+                             style="height: 200px;">
+                            Kein Bild
+                        </div>
 
-            <div class="row gx-4 gx-lg-5 row-cols-1 row-cols-md-2 row-cols-xl-4 justify-content-center">
+                        <div class="card-body p-4">
+                            <div class="text-center">
 
-                @foreach ($products as $product)
+                                <h5 class="fw-bolder">
+                                    {{ $product->title }}
+                                </h5>
 
-                    <div class="col mb-5">
+                                <p>
+                                    {{ $product->description }}
+                                </p>
 
-                        <div class="card h-100">
+                                <strong>
+                                    {{ $product->current_price }} €
+                                </strong>
 
-                            <div class="bg-light d-flex align-items-center justify-content-center"
-                                 style="height: 200px;">
-                                Kein Bild
-                            </div>
-
-                            <div class="card-body p-4">
-
-                                <div class="text-center">
-
-                                    <h5 class="fw-bolder">
-                                        {{ $product->title }}
-                                    </h5>
-
-                                    <p>
-                                        {{ $product->description }}
-                                    </p>
-
-                                    <strong>
-                                        {{ $product->current_price }} €
-                                    </strong>
-                                    
-                                    <div class="mt-3">
-    
-<a href="{{ route('products.show', $product->id) }}" class="btn btn-outline-dark">
-    Jetzt bieten
-</a>   
-</div>
+                                <div class="mt-3">
+                                    <a href="{{ route('products.show', $product->id) }}"
+                                       class="btn btn-outline-dark">
+                                        Jetzt bieten
+                                    </a>
                                 </div>
 
                             </div>
-
                         </div>
 
                     </div>
 
-                @endforeach
+                </div>
 
-            </div>
+            @endforeach
 
         </div>
-    </section>
+    </div>
+</section>
 
-</body>
-</html>
+@endsection
