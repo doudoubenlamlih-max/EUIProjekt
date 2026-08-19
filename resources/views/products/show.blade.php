@@ -6,36 +6,49 @@
 
 <div class="container px-4 px-lg-5 py-5">
 
+    @if (session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
+
+    @if (session('error'))
+        <div class="alert alert-danger">
+            {{ session('error') }}
+        </div>
+    @endif
+
     <div class="row gx-4 gx-lg-5 align-items-center">
 
         <!-- Produktbild -->
         <div class="col-md-6">
 
-           @if ($product->image)
+            @if ($product->image)
 
-    <img
-        src="{{ asset('storage/' . $product->image) }}"
-        alt="{{ $product->title }}"
-        class="img-fluid rounded"
-        style="width: 100%; height: 450px; object-fit: contain; background: white;"
-    >
+                <img
+                    src="{{ asset('storage/' . $product->image) }}"
+                    alt="{{ $product->title }}"
+                    class="img-fluid rounded"
+                    style="width: 100%; height: 450px; object-fit: contain; background: white;"
+                >
 
-@else
+            @else
 
-    <div class="bg-light d-flex align-items-center justify-content-center rounded"
-         style="height: 450px;">
+                <div class="bg-light d-flex align-items-center justify-content-center rounded"
+                     style="height: 450px;">
 
-        <span class="text-muted fs-4">
-            Kein Bild vorhanden
-        </span>
+                    <span class="text-muted fs-4">
+                        Kein Bild vorhanden
+                    </span>
 
-    </div>
+                </div>
 
-@endif
+            @endif
+
         </div>
 
 
-        <!-- Produktinfos -->
+        <!-- Produktinformationen -->
         <div class="col-md-6">
 
             <span class="badge bg-dark mb-3">
@@ -51,6 +64,7 @@
             </p>
 
 
+            <!-- Aktuelles Gebot -->
             <div class="my-4">
 
                 <small class="text-muted">
@@ -64,6 +78,7 @@
             </div>
 
 
+            <!-- Fehler beim Gebot -->
             @if ($errors->has('amount'))
 
                 <div class="alert alert-danger">
@@ -73,55 +88,82 @@
             @endif
 
 
-            <div class="card shadow-sm">
+            @if ($product->status !== 'sold')
 
-                <div class="card-body">
+                <!-- Gebot -->
+                <div class="card shadow-sm">
 
-                    <h5 class="card-title mb-3">
-                        Gebot abgeben
-                    </h5>
+                    <div class="card-body">
 
-                    <form action="{{ route('bids.store', $product->id) }}"
-                          method="POST">
-
-                        @csrf
-
-                        <div class="mb-3">
-
-                            <label for="amount"
-                                   class="form-label">
-
-                                Dein Gebot in €
-
-                            </label>
-
-                            <input
-                                type="number"
-                                name="amount"
-                                id="amount"
-                                class="form-control"
-                                step="0.01"
-                                min="0.01"
-                                placeholder="z.B. 250,00"
-                                required
-                            >
-
-                        </div>
-
-                        <button type="submit"
-                                class="btn btn-dark w-100">
-
+                        <h5 class="card-title mb-3">
                             Gebot abgeben
+                        </h5>
 
-                        </button>
+                        <form action="{{ route('bids.store', $product->id) }}"
+                              method="POST">
 
-                    </form>
+                            @csrf
+
+                            <div class="mb-3">
+
+                                <label for="amount"
+                                       class="form-label">
+                                    Dein Gebot in €
+                                </label>
+
+                                <input
+                                    type="number"
+                                    name="amount"
+                                    id="amount"
+                                    class="form-control"
+                                    step="0.01"
+                                    min="0.01"
+                                    placeholder="z.B. 50,00"
+                                    required
+                                >
+
+                            </div>
+
+                            <button type="submit"
+                                    class="btn btn-dark w-100">
+                                Gebot abgeben
+                            </button>
+
+                        </form>
+
+                    </div>
 
                 </div>
 
-            </div>
+
+                <!-- Sofort kaufen -->
+                <form action="{{ route('orders.store', $product->id) }}"
+                      method="POST"
+                      class="mt-3">
+
+                    @csrf
+
+                    <button type="submit"
+                            class="btn btn-success w-100">
+
+                        Sofort kaufen –
+                        {{ number_format($product->current_price, 2, ',', '.') }} €
+
+                    </button>
+
+                </form>
 
 
+            @else
+
+                <div class="alert alert-secondary">
+                    Dieses Produkt wurde bereits verkauft.
+                </div>
+
+            @endif
+
+
+            <!-- Zurück -->
             <a href="{{ route('products.index') }}"
                class="btn btn-link mt-3">
 

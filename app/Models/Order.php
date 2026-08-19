@@ -6,13 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Order extends Model
 {
-    
     protected $fillable = [
         'user_id',
         'product_id',
-        'bid_id',
-        'total_amount',
-        'status'
+        'price',
+        'status',
     ];
 
     public function user()
@@ -24,10 +22,4 @@ class Order extends Model
     {
         return $this->belongsTo(Product::class);
     }
-
-    public function bid()
-    {
-        return $this->belongsTo(Bid::class);
-    }
-
 }
