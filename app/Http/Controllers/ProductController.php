@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use Illuminate\Http\Request;
-
+use App\Models\Category;
 class ProductController extends Controller
 {
     public function index()
@@ -18,17 +18,35 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('products.create');
+     
+    $categories = Category::all();
 
+    return view('products.create', compact('categories'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
-    {
-        //
-    }
+   public function store(Request $request)
+{
+    $request->validate([
+        'title' => 'required|string|max:255',
+        'description' => 'required|string',
+        'current_price' => 'required|numeric|min:0',
+        'category_id' => 'required|exists:categories,id',
+    ]);
+
+    Product::create([
+        'title' => $request->title,
+        'description' => $request->description,
+        'current_price' => $request->current_price,
+        'category_id' => $request->category_id,
+    ]);
+
+    return redirect()
+        ->route('products.index')
+        ->with('success', 'Produkt wurde erfolgreich erstellt.');
+}
 
     /**
      * Display the specified resource.
